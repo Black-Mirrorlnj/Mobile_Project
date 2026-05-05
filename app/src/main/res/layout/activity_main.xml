@@ -13,5 +13,5 @@
         android:layout_height="wrap_content"
         android:text="Aplicativo de Sorteio"
         tools:layout_editor_absoluteX="127dp"
-        tools:layout_editor_absoluteY="38dp" />
+        tools:layout_editor_absoluteY="40dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
