@@ -2,4 +2,13 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="player_background_top">#0A1024</color>
+    <color name="player_background_bottom">#152C54</color>
+    <color name="player_surface">#D918233A</color>
+    <color name="player_surface_border">#334C72B0</color>
+    <color name="player_accent">#78F0D8</color>
+    <color name="player_accent_dark">#1F5F57</color>
+    <color name="player_row_background">#14304B70</color>
+    <color name="player_text_primary">#F5F7FF</color>
+    <color name="player_text_secondary">#A9B5D1</color>
 </resources>

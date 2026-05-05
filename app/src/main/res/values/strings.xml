@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">GmodScore</string>
+    <string name="player_screen_title">Player Table UI</string>
+    <string name="player_screen_subtitle">Uma interface para exibir e editar email, nick, Steam ID e foto do jogador.</string>
+    <string name="player_photo_title">Foto do player</string>
+    <string name="player_photo_subtitle">Use uma imagem personalizada para deixar o cadastro mais completo.</string>
+    <string name="player_choose_photo">Escolher foto</string>
+    <string name="player_form_title">Dados do player</string>
+    <string name="player_form_subtitle">Preencha os campos abaixo e atualize o card com as informacoes da tabela.</string>
+    <string name="player_preview_title">Preview da tabela player</string>
+    <string name="player_preview_subtitle">Esse card mostra como os dados podem ser apresentados dentro do app.</string>
+    <string name="player_email_label">Email</string>
+    <string name="player_nick_label">Nick</string>
+    <string name="player_steam_id_label">Steam ID</string>
+    <string name="player_update_button">Atualizar visual</string>
+    <string name="player_updated_message">Preview do player atualizado.</string>
+    <string name="player_photo_description">Foto do player</string>
+    <string name="player_card_badge">Player table</string>
+    <string name="player_preview_player_name">Registro principal</string>
+    <string name="default_email_value">player@gmodscore.com</string>
+    <string name="default_nick_value">LucianoFPS</string>
+    <string name="default_steam_id_value">STEAM_0:1:12345678</string>
 </resources>
