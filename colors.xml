@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Cores do GMod Score -->
+    <color name="bg_primary">#0d1117</color>
+    <color name="bg_secondary">#161b22</color>
+    <color name="bg_success">#1a4731</color>
+    <color name="bg_error">#3d0c0c</color>
+
+    <color name="text_primary">#e6edf3</color>
+    <color name="text_secondary">#8b949e</color>
+    <color name="text_success">#3fb950</color>
+    <color name="text_error">#f85149</color>
+
+    <color name="accent_blue">#58a6ff</color>
+    <color name="border">#30363d</color>
+</resources>
