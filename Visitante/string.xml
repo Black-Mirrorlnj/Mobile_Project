@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GmodScore</string>
+
+    <!-- Visitante Entrada -->
+    <string name="titulo_app">GMod Score</string>
+    <string name="subtitulo_entrada">Registre sua entrada no servidor</string>
+    <string name="label_nome">Nome de usuário</string>
+    <string name="hint_nome">Ex: PlayerOne</string>
+    <string name="btn_registrar">Registrar Entrada</string>
+    <string name="btn_nova_entrada">Nova Entrada</string>
+    <string name="sucesso_entrada">Entrada registrada com sucesso!</string>
+    <string name="rodape">GMod Score © 2026</string>
+
+    <!-- Erros de validação -->
+    <string name="erro_nome_vazio">Nome é obrigatório</string>
+    <string name="erro_nome_curto">Nome deve ter pelo menos 3 caracteres</string>
+    <string name="erro_nome_invalido">Use apenas letras, números, espaço e _</string>
+</resources>
