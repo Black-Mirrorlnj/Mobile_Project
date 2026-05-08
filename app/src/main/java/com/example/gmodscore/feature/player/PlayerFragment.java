@@ -1,4 +1,4 @@
-package com.example.gmodscore.Features.Player;
+package com.example.gmodscore.feature.player;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,10 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.gmodscore.R;
 import com.example.gmodscore.databinding.FragmentPlayerBinding;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputEditText;
+import com.example.gmodscore.R;
 
 public class PlayerFragment extends Fragment {
 
@@ -90,3 +90,4 @@ public class PlayerFragment extends Fragment {
         binding = null;
     }
 }
+

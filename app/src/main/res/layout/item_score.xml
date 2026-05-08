@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardBackgroundColor="@color/player_surface"
+    app:cardCornerRadius="18dp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/player_surface_border"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Linha 1: Mapa + Score final -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🗺️"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/txtItemMapa"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:textColor="@color/player_text_primary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <!-- Badge do score final -->
+            <TextView
+                android:id="@+id/txtItemScoreFinal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_avatar_placeholder"
+                android:paddingStart="12dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="4dp"
+                android:textColor="@color/player_accent"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Linha 2: Partida ID + Data -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtItemPartidaId"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/player_text_secondary"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/txtItemData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/player_text_secondary"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- Divisor -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/player_surface_border" />
+
+        <!-- Linha 3: Score inicial → Score final -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Score: "
+                android:textColor="@color/player_text_secondary"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/txtItemScoreInicial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/player_text_primary"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
+                android:text="→"
+                android:textColor="@color/player_text_secondary"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/txtItemScoreFinalDetalhe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/player_accent"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <!-- Duração da partida -->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="⏱"
+                android:textColor="@color/player_text_secondary"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/txtItemDuracao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/player_text_secondary"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        IMPORTANTE: os android:id aqui DEVEM ser iguais
+        aos ids dos fragments no nav_graph.xml
+    -->
+
+    <item
+        android:id="@+id/playerFragment"
+        android:icon="@drawable/ic_person"
+        android:title="Perfil" />
+
+    <item
+        android:id="@+id/playerStatsFragment"
+        android:icon="@drawable/ic_stats"
+        android:title="Stats" />
+
+    <item
+        android:id="@+id/playerRankingFragment"
+        android:icon="@drawable/ic_trophy"
+        android:title="Ranking" />
+
+    <item
+        android:id="@+id/playerScoreFragment"
+        android:icon="@drawable/ic_score"
+        android:title="Partidas" />
+
+</menu>
+
