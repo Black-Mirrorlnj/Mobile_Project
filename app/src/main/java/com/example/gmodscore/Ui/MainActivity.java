@@ -1,4 +1,4 @@
-package com.example.gmodscore;
+package com.example.gmodscore.Ui;
 
 import android.os.Bundle;
 

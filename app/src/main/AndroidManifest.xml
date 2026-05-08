@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GmodScore">
         <activity
-            android:name=".MainActivity"
+            android:name=".Ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,5 +21,6 @@
             </intent-filter>
         </activity>
     </application>
+
 
 </manifest>
