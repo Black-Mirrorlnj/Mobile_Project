@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilNome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/nome_visitante">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etNome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tvErro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/erro_nome_vazio"
+            android:textColor="@color/text_error"
+            android:visibility="gone"
+            android:paddingTop="4dp" />
+
+        <Button
+            android:id="@+id/btnRegistrar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_registrar"
+            android:layout_marginTop="12dp" />
+
+        <LinearLayout
+            android:id="@+id/cardSucesso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_success"
+            android:padding="12dp"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_marginTop="16dp">
+            <TextView
+                android:id="@+id/tvNomeRegistrado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="@color/text_success"
+                android:text=""/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bem_vindo"
+                android:textColor="@color/text_success" />
+            <Button
+                android:id="@+id/btnNovaEntrada"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_nova_entrada"
+                android:layout_marginTop="8dp"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnVerListagem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_ver_listagem"
+            android:layout_marginTop="16dp" />
+        <Button
+            android:id="@+id/btnVerRanking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_ver_ranking"
+            android:layout_marginTop="6dp" />
+    </LinearLayout>
+</ScrollView>
