@@ -1,4 +1,4 @@
-package com.example.gmodscore.network.model;
+package com.example.gmodscore.network.model.player;
 
 import com.google.gson.annotations.SerializedName;
 

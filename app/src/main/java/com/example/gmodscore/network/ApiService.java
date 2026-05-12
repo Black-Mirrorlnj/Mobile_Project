@@ -1,9 +1,9 @@
 package com.example.gmodscore.network;
 
-import com.example.gmodscore.network.model.Estatisticas;
-import com.example.gmodscore.network.model.Jogador;
-import com.example.gmodscore.network.model.Pontuacao;
-import com.example.gmodscore.network.model.Ranking;
+import com.example.gmodscore.network.model.player.Estatisticas;
+import com.example.gmodscore.network.model.player.Jogador;
+import com.example.gmodscore.network.model.player.Pontuacao;
+import com.example.gmodscore.network.model.player.Ranking;
 
 import java.util.List;
 
