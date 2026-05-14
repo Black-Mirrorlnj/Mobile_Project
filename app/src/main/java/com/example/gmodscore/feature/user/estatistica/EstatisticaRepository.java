@@ -1,6 +1,5 @@
 package com.example.gmodscore.estatistica.repository;
 
-import com.example.gmodscore.estatistica.api.EstatisticaApiService;
 import com.example.gmodscore.estatistica.model.EstatisticaModel;
 import com.example.gmodscore.retrofit.RetrofitClient;
 
