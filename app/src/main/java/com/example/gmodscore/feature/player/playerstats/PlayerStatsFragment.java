@@ -35,38 +35,35 @@ public class PlayerStatsFragment extends Fragment {
     }
 
     private void loadPlayerStats() {
-        // TODO: Substituir por chamada real à API Spring Boot
-        // Endpoint sugerido: GET /api/jogadores/{id}/estatisticas
-        // Tabelas usadas: estatisticas + jogadores
+        int jogadorId = 1; // TODO: pegar do login
 
-        int kills      = 32;
-        int deaths     = 12;
-        int dinheiro   = 3400;
-        int nivel      = 4;
-        int experiencia = 420;
-        int tempoJogado = 1400; // segundos — campo tempo_jogado da tabela estatisticas
-        String nick    = "Ana";
-        String steamId = "76561198000000002";
+        RetrofitClient.getApi()
+                .buscarEstatisticasPorJogador(jogadorId)
+                .enqueue(new Callback<Estatisticas>() {
 
-        binding.txtStatsNick.setText(nick);
-        binding.txtStatsSteamId.setText(steamId);
-        binding.txtStatsLevel.setText(String.valueOf(nivel));
-        binding.txtStatsKills.setText(String.valueOf(kills));
-        binding.txtStatsDeaths.setText(String.valueOf(deaths));
-        binding.txtStatsMoney.setText(String.valueOf(dinheiro));
+                    @Override
+                    public void onResponse(Call<Estatisticas> call,
+                                           Response<Estatisticas> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            Estatisticas e = response.body();
+                            binding.txtStatsKills.setText(String.valueOf(e.kills));
+                            binding.txtStatsDeaths.setText(String.valueOf(e.deaths));
+                            binding.txtStatsMoney.setText(String.valueOf(e.dinheiro));
+                            binding.txtStatsLevel.setText(String.valueOf(e.nivel));
+                            binding.txtStatsXp.setText(e.experiencia + " XP");
+                            double kd = e.deaths > 0 ? (double) e.kills / e.deaths : e.kills;
+                            binding.txtStatsKD.setText(String.format("%.2f", kd));
+                            binding.txtStatsPlaytime.setText(formatPlaytime(e.tempoJogado));
+                        }
+                    }
 
-        // K/D Ratio calculado no app (kills / deaths)
-        double kd = deaths > 0 ? (double) kills / deaths : kills;
-        binding.txtStatsKD.setText(String.format("%.2f", kd));
-
-        // Barra de XP: progresso dentro do nível atual (cada nível = 100 XP)
-        int xpNoNivelAtual = experiencia % 100;
-        binding.txtStatsXp.setText(experiencia + " XP");
-        binding.txtStatsXpProximo.setText(xpNoNivelAtual + " / 100 XP para o próximo nível");
-        binding.progressXp.setMax(100);
-        binding.progressXp.setProgress(xpNoNivelAtual);
-
-        binding.txtStatsPlaytime.setText(formatPlaytime(tempoJogado));
+                    @Override
+                    public void onFailure(Call<Estatisticas> call, Throwable t) {
+                        Toast.makeText(requireContext(),
+                                "Erro ao carregar dados", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
     }
 
     // Converte segundos para formato legível (ex: 23h 20m)

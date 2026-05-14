@@ -3,7 +3,6 @@ package com.example.gmodscore.feature.visitante.VisitanteModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.gmodscore.feature.visitante.Rede.RetrofitClient;
-import com.example.gmodscore.feature.visitante.Rede.VisitanteApiService;
 import com.example.gmodscore.feature.visitante.Ranking.VisitanteRanking;
 
 import java.util.List;
