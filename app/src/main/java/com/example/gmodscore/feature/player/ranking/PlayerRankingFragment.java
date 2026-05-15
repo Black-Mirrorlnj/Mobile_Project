@@ -4,17 +4,24 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.gmodscore.databinding.FragmentPlayerRankingBinding;
 import com.example.gmodscore.R;
+import com.example.gmodscore.databinding.FragmentPlayerRankingBinding;
+import com.example.gmodscore.network.RetrofitClient;
+import com.example.gmodscore.network.model.player.Ranking;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PlayerRankingFragment extends Fragment {
 
@@ -35,27 +42,58 @@ public class PlayerRankingFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setupRanking();
+        binding.recyclerRanking.setLayoutManager(new LinearLayoutManager(requireContext()));
+        loadRanking();
     }
 
-    private void setupRanking() {
-        // TODO: Substituir por chamada real à API Spring Boot
-        // Endpoint sugerido: GET /api/ranking
-        // Tabelas usadas: ranking_global JOIN jogadores ORDER BY pontos DESC
+    private void loadRanking() {
+        RetrofitClient.getApi()
+                .buscarRanking()
+                .enqueue(new Callback<List<Ranking>>() {
+                    @Override
+                    public void onResponse(@NonNull Call<List<Ranking>> call,
+                                           @NonNull Response<List<Ranking>> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            List<Ranking> lista = response.body();
+                            preencherRanking(lista);
+                        } else {
+                            Toast.makeText(requireContext(),
+                                    "Nenhum dado encontrado", Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
-        List<RankingAdapter.RankingItem> lista = Arrays.asList(
-                new RankingAdapter.RankingItem(1, "Julia",  "76561198000000004", 3200),
-                new RankingAdapter.RankingItem(2, "Ana",    "76561198000000002", 2100),
-                new RankingAdapter.RankingItem(3, "Carlos", "76561198000000001", 1200),
-                new RankingAdapter.RankingItem(4, "Marcos", "76561198000000005", 1500),
-                new RankingAdapter.RankingItem(5, "Pedro",  "76561198000000003",  900)
-        );
+                    @Override
+                    public void onFailure(@NonNull Call<List<Ranking>> call,
+                                          @NonNull Throwable t) {
+                        Toast.makeText(requireContext(),
+                                "Erro de conexão", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 
-        binding.recyclerRanking.setLayoutManager(new LinearLayoutManager(requireContext()));
-        binding.recyclerRanking.setAdapter(new RankingAdapter(lista));
+    private void preencherRanking(List<Ranking> lista) {
+        // Converte Ranking → RankingAdapter.RankingItem
+        List<RankingAdapter.RankingItem> items = new ArrayList<>();
+        for (Ranking r : lista) {
+            items.add(new RankingAdapter.RankingItem(
+                    r.posicao,
+                    r.nome    != null ? r.nome    : "Jogador #" + r.jogadorId,
+                    r.steamId != null ? r.steamId : "",
+                    r.pontos
+            ));
+        }
 
-        // Destaca a posição do jogador logado (mock: jogador "Ana" = posição 2)
-        binding.txtMinhaPosicao.setText("Você está em #2 com 2100 pts");
+        binding.recyclerRanking.setAdapter(new RankingAdapter(items));
+
+        // Destaca posição do jogador logado (TODO: usar ID real do login)
+        int meuId = 1;
+        for (Ranking r : lista) {
+            if (r.jogadorId == meuId) {
+                binding.txtMinhaPosicao.setText(
+                        "Você está em #" + r.posicao + " com " + r.pontos + " pts");
+                break;
+            }
+        }
     }
 
     @Override
@@ -64,4 +102,3 @@ public class PlayerRankingFragment extends Fragment {
         binding = null;
     }
 }
-

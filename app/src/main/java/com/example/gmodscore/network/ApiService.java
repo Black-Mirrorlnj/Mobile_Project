@@ -4,7 +4,7 @@ import com.example.gmodscore.network.model.player.Estatisticas;
 import com.example.gmodscore.network.model.player.Jogador;
 import com.example.gmodscore.network.model.player.Pontuacao;
 import com.example.gmodscore.network.model.player.Ranking;
-import com.example.gmodscore.network.model.visitante.Visitante
+
 
 import java.util.List;
 

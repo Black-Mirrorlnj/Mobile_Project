@@ -4,17 +4,24 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.gmodscore.databinding.FragmentPlayerScoreBinding;
 import com.example.gmodscore.R;
+import com.example.gmodscore.databinding.FragmentPlayerScoreBinding;
+import com.example.gmodscore.network.RetrofitClient;
+import com.example.gmodscore.network.model.player.Pontuacao;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PlayerScoreFragment extends Fragment {
 
@@ -35,34 +42,57 @@ public class PlayerScoreFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        loadScores();
+        binding.recyclerScore.setLayoutManager(new LinearLayoutManager(requireContext()));
+        loadPontuacoes();
     }
 
-    private void loadScores() {
-        // TODO: Substituir por chamada real à API Spring Boot
-        // Endpoint sugerido: GET /api/jogadores/{id}/pontuacoes
-        // Tabelas: pontuacoes JOIN partidas WHERE jogador_id = {id}
+    private void loadPontuacoes() {
+        RetrofitClient.getApi()
+                .listarPontuacoes()
+                .enqueue(new Callback<List<Pontuacao>>() {
+                    @Override
+                    public void onResponse(@NonNull Call<List<Pontuacao>> call,
+                                           @NonNull Response<List<Pontuacao>> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            preencherScore(response.body());
+                        } else {
+                            Toast.makeText(requireContext(),
+                                    "Nenhum dado encontrado", Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
-        List<ScoreAdapter.ScoreItem> lista = Arrays.asList(
-                new ScoreAdapter.ScoreItem(1, "gm_construct", 0, 120, "01/04 18:00", "30 min"),
-                new ScoreAdapter.ScoreItem(2, "gm_flatgrass",  0,  85, "02/04 19:00", "40 min"),
-                new ScoreAdapter.ScoreItem(3, "gm_bigcity",    0, 310, "03/04 20:00", "50 min"),
-                new ScoreAdapter.ScoreItem(4, "gm_construct",  0, 150, "04/04 21:00", "35 min"),
-                new ScoreAdapter.ScoreItem(5, "gm_flatgrass",  0, 200, "05/04 22:00", "45 min")
-        );
+                    @Override
+                    public void onFailure(@NonNull Call<List<Pontuacao>> call,
+                                          @NonNull Throwable t) {
+                        Toast.makeText(requireContext(),
+                                "Erro de conexão", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 
-        // Calcula resumo
+    private void preencherScore(List<Pontuacao> lista) {
+        // Resumo
         int total = lista.size();
-        int melhor = lista.stream()
-                .mapToInt(i -> i.scoreFinal)
-                .max()
-                .orElse(0);
-
+        int melhor = 0;
+        for (Pontuacao p : lista) {
+            if (p.scoreFinal > melhor) melhor = p.scoreFinal;
+        }
         binding.txtTotalPartidas.setText(String.valueOf(total));
         binding.txtMelhorScore.setText(String.valueOf(melhor));
 
-        binding.recyclerScore.setLayoutManager(new LinearLayoutManager(requireContext()));
-        binding.recyclerScore.setAdapter(new ScoreAdapter(lista));
+        // Converte Pontuacao → ScoreAdapter.ScoreItem
+        List<ScoreAdapter.ScoreItem> items = new ArrayList<>();
+        for (Pontuacao p : lista) {
+            items.add(new ScoreAdapter.ScoreItem(
+                    p.partidaId,
+                    "Partida " + p.partidaId, // TODO: buscar nome do mapa
+                    p.scoreInicial,
+                    p.scoreFinal,
+                    "—",  // TODO: buscar data da partida
+                    "—"   // TODO: buscar duração
+            ));
+        }
+        binding.recyclerScore.setAdapter(new ScoreAdapter(items));
     }
 
     @Override
@@ -71,3 +101,4 @@ public class PlayerScoreFragment extends Fragment {
         binding = null;
     }
 }
+
