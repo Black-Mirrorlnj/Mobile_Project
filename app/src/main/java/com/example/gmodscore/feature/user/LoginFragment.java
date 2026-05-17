@@ -1,5 +1,4 @@
-package com.example.gmodscore.feature.user.fragment;
-
+package com.example.gmodscore.feature.user;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,7 +8,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.gmodscore.R;
@@ -29,7 +27,7 @@ public class LoginFragment extends Fragment {
 
     private FragmentLoginBinding binding;
     private SessionManager session;
-    private boolean modoLogin = true; // true = login, false = cadastro
+    private boolean modoLogin = true;
 
     public LoginFragment() { super(R.layout.fragment_login); }
 
@@ -47,8 +45,11 @@ public class LoginFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         session = new SessionManager(requireContext());
 
-        // Se já estiver logado, vai direto para o player
-        if (session.estaLogado()) irParaPlayer();
+        // Se já estiver logado vai direto para o player
+        if (session.estaLogado()) {
+            irParaPlayer();
+            return;
+        }
 
         configurarAbas();
         configurarBotoes();
@@ -56,7 +57,8 @@ public class LoginFragment extends Fragment {
 
     private void configurarAbas() {
         binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override public void onTabSelected(TabLayout.Tab tab) {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
                 modoLogin = tab.getPosition() == 0;
                 binding.btnAcao.setText(modoLogin ? "Entrar" : "Cadastrar");
                 binding.layoutConfirmPassword.setVisibility(
@@ -69,6 +71,7 @@ public class LoginFragment extends Fragment {
     }
 
     private void configurarBotoes() {
+
         binding.btnAcao.setOnClickListener(v -> {
             String user = binding.inputUsername.getText().toString().trim();
             String pass = binding.inputPassword.getText().toString().trim();
@@ -79,7 +82,8 @@ public class LoginFragment extends Fragment {
             }
 
             if (!modoLogin) {
-                String confirm = binding.inputConfirmPassword.getText().toString().trim();
+                String confirm = binding.inputConfirmPassword
+                        .getText().toString().trim();
                 if (!pass.equals(confirm)) {
                     mostrarErro("As senhas não coincidem");
                     return;
@@ -90,7 +94,7 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        // Entrar como visitante → vai para tela do visitante
+        // Entrar como visitante
         binding.btnVisitante.setOnClickListener(v ->
                 NavHostFragment.findNavController(this)
                         .navigate(R.id.action_login_to_visitante));
@@ -98,8 +102,7 @@ public class LoginFragment extends Fragment {
 
     private void login(String username, String password) {
         showLoading(true);
-        // Busca todos os users e valida localmente
-        // TODO: trocar por endpoint POST /login quando o backend implementar
+        // TODO: trocar por POST /login com JWT quando o backend implementar
         RetrofitClient.getApi().listarUsers().enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(@NonNull Call<List<User>> call,
@@ -107,7 +110,8 @@ public class LoginFragment extends Fragment {
                 showLoading(false);
                 if (response.isSuccessful() && response.body() != null) {
                     for (User u : response.body()) {
-                        if (u.username.equals(username) && u.password.equals(password)) {
+                        if (u.username.equals(username)
+                                && u.password.equals(password)) {
                             session.salvarSessao(u.userId, u.username);
                             irParaPlayer();
                             return;
@@ -120,7 +124,8 @@ public class LoginFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(@NonNull Call<List<User>> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<List<User>> call,
+                                  @NonNull Throwable t) {
                 showLoading(false);
                 mostrarErro("Sem conexão com o servidor");
             }

@@ -94,4 +94,10 @@
             app:popUpToInclusive="true" />
     </fragment>
 
+    <fragment
+        android:id="@+id/playFragment"
+        android:name="com.example.gmodscore.feature.play.PlayFragment"
+        android:label="Jogar"
+        tools:layout="@layout/fragment_play" />
+
 </navigation>

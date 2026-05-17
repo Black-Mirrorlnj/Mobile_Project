@@ -1,4 +1,4 @@
-package com.example.gmodscore.feature.visitante.fragment;
+package com.example.gmodscore.feature.visitante;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -27,7 +27,9 @@ public class VisitanteFragment extends Fragment {
 
     private FragmentVisitanteBinding binding;
 
-    public VisitanteFragment() { super(R.layout.fragment_visitante); }
+    public VisitanteFragment() {
+        super(R.layout.fragment_visitante);
+    }
 
     @Nullable
     @Override
@@ -143,7 +145,8 @@ public class VisitanteFragment extends Fragment {
 
                     @Override
                     public void onFailure(@NonNull Call<List<Visitante>> call,
-                                          @NonNull Throwable t) { }
+                                          @NonNull Throwable t) {
+                    }
                 });
     }
 
@@ -168,4 +171,6 @@ public class VisitanteFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
 }
+

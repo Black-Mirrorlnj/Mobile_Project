@@ -4,7 +4,10 @@ import com.example.gmodscore.network.model.player.Estatisticas;
 import com.example.gmodscore.network.model.player.Jogador;
 import com.example.gmodscore.network.model.player.Pontuacao;
 import com.example.gmodscore.network.model.player.Ranking;
-
+import com.example.gmodscore.network.model.partida.PartidaAtiva;
+import com.example.gmodscore.network.model.servidor.Servidor;
+import com.example.gmodscore.network.model.usuario.User;
+import com.example.gmodscore.network.model.visitante.Visitante;
 
 import java.util.List;
 
@@ -14,6 +17,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.DELETE;
 
 public interface ApiService {
 
@@ -83,4 +87,15 @@ public interface ApiService {
 
     @DELETE("visitantes/{id}")
     Call<Void> removerVisitante(@Path("id") int id);
+
+    // ── SERVIDORES ─────────────────────────────────────────
+    @GET("servidores")
+    Call<List<Servidor>> listarServidores();
+
+    // ── MATCHES (partidas ativas) ──────────────────────────
+    @GET("matches")
+    Call<List<PartidaAtiva>> listarMatches();
+
+    @POST("matches")
+    Call<PartidaAtiva> criarMatch(@Body PartidaAtiva partida);
 }

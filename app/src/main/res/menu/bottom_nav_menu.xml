@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!--
-        IMPORTANTE: os android:id aqui DEVEM ser iguais
-        aos ids dos fragments no nav_graph.xml
-    -->
+    <item
+        android:id="@+id/playFragment"
+        android:icon="@drawable/ic_score"
+        android:title="Jogar" />
+
 
     <item
         android:id="@+id/playerFragment"

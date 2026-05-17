@@ -30,7 +30,7 @@ public class VisitanteAdapter extends RecyclerView.Adapter<VisitanteAdapter.VH> 
     @Override
     public void onBindViewHolder(@NonNull VH h, int pos) {
         Visitante v = items.get(pos);
-        int posicao  = pos + 1;
+        int posicao = pos + 1;
 
         switch (posicao) {
             case 1: h.posicao.setText("🥇"); break;
@@ -50,6 +50,7 @@ public class VisitanteAdapter extends RecyclerView.Adapter<VisitanteAdapter.VH> 
 
     static class VH extends RecyclerView.ViewHolder {
         TextView posicao, nome, kills, horario;
+
         VH(@NonNull View v) {
             super(v);
             posicao = v.findViewById(R.id.txtVisitantePosicao);
