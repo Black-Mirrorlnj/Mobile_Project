@@ -3,19 +3,9 @@ package com.example.gmodscore.network.model.visitante;
 import com.google.gson.annotations.SerializedName;
 
 public class Visitante {
-
-    @SerializedName("id")
-    public int id;
-
-    @SerializedName("nome")
-    public String nome;
-
-    @SerializedName("entrada")
-    public String entrada;
-
-    @SerializedName("saida")
-    public String saida;
-
-    @SerializedName("kills")
-    public int kills;
+    @SerializedName("id_visitante")    public int id;
+    @SerializedName("nome_usuario")    public String nomeUsuario;
+    @SerializedName("horario_entrada") public String horarioEntrada;
+    @SerializedName("horario_saida")   public String horarioSaida;
+    @SerializedName("kills")           public int kills;
 }

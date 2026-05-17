@@ -23,11 +23,23 @@ public class MainActivity extends AppCompatActivity {
         // Pega o NavController pelo NavHostFragment
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.nav_host_fragment);
+        NavController navController = navHost.getNavController();
 
-        NavController navController = navHostFragment.getNavController();
+        NavigationUI.setupWithNavController(binding.bottomNavView, navController);
 
         // Liga a BottomNavigationView ao NavController automaticamente
         NavigationUI.setupWithNavController(binding.bottomNavView, navController);
+
+        // Esconde BottomNav nas telas de Splash, Login e Visitante
+        navController.addOnDestinationChangedListener((ctrl, dest, args) -> {
+            if (dest.getId() == R.id.splashFragment
+                    || dest.getId() == R.id.loginFragment
+                    || dest.getId() == R.id.visitanteFragment) {
+                binding.bottomNavView.setVisibility(View.GONE);
+            } else {
+                binding.bottomNavView.setVisibility(View.VISIBLE);
+            }
+        });
     }
-}
+    {
 

@@ -55,7 +55,32 @@ public interface ApiService {
     @PUT("pontuacoes/finalizar")
     Call<Void> finalizarPontuacao(@Body Pontuacao pontuacao);
 
-    // ---- VISITANTE -------------------------------------------------------------
+    // ── USERS ──────────────────────────────────────────────
+    @GET("users")
+    Call<List<User>> listarUsers();
 
+    @GET("users/{id}")
+    Call<User> buscarUser(@Path("id") int id);
 
+    @POST("users")
+    Call<User> criarUser(@Body User user);
+
+    @PUT("users/{id}")
+    Call<User> atualizarUser(@Path("id") int id, @Body User user);
+
+    @DELETE("users/{id}")
+    Call<Void> deletarUser(@Path("id") int id);
+
+    // ── VISITANTES ─────────────────────────────────────────
+    @GET("visitantes")
+    Call<List<Visitante>> listarVisitantes();
+
+    @POST("visitantes")
+    Call<Visitante> registrarEntrada(@Body Visitante visitante);
+
+    @PUT("visitantes/{id}/saida")
+    Call<Visitante> registrarSaida(@Path("id") int id, @Body Visitante visitante);
+
+    @DELETE("visitantes/{id}")
+    Call<Void> removerVisitante(@Path("id") int id);
 }

@@ -3,101 +3,95 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/playerFragment">
+    app:startDestination="@id/splashFragment">
 
-    <!-- ========== PLAYER (tela inicial) ========== -->
+    <!-- SPLASH (nova tela inicial) -->
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.gmodscore.feature.splash.SplashFragment"
+        android:label="Splash"
+        tools:layout="@layout/fragment_splash">
+
+        <action
+            android:id="@+id/action_splash_to_login"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_splash_to_player"
+            app:destination="@id/playerFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <!-- LOGIN (tela inicial) -->
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.gmodscore.feature.user.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login">
+
+        <action
+            android:id="@+id/action_login_to_player"
+            app:destination="@id/playerFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_login_to_visitante"
+            app:destination="@id/visitanteFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <!-- PLAYER -->
     <fragment
         android:id="@+id/playerFragment"
         android:name="com.example.gmodscore.feature.player.PlayerFragment"
         android:label="Perfil"
         tools:layout="@layout/fragment_player">
-
-        <action
-            android:id="@+id/action_player_to_stats"
+        <action android:id="@+id/action_player_to_stats"
             app:destination="@id/playerStatsFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-
-        <action
-            android:id="@+id/action_player_to_ranking"
+            app:enterAnim="@anim/slide_in_right" app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left" app:popExitAnim="@anim/slide_out_right"/>
+        <action android:id="@+id/action_player_to_ranking"
             app:destination="@id/playerRankingFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-
-        <action
-            android:id="@+id/action_player_to_score"
+            app:enterAnim="@anim/slide_in_right" app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left" app:popExitAnim="@anim/slide_out_right"/>
+        <action android:id="@+id/action_player_to_score"
             app:destination="@id/playerScoreFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:enterAnim="@anim/slide_in_right" app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left" app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
-    <!-- ========== ESTATÍSTICAS ========== -->
-    <fragment
-        android:id="@+id/playerStatsFragment"
+    <!-- STATS -->
+    <fragment android:id="@+id/playerStatsFragment"
         android:name="com.example.gmodscore.feature.player.playerstats.PlayerStatsFragment"
-        android:label="Estatísticas"
-        tools:layout="@layout/fragment_player_stats">
+        android:label="Estatísticas" tools:layout="@layout/fragment_player_stats"/>
 
-        <!-- Voltar ao perfil -->
-        <action
-            android:id="@+id/action_stats_to_player"
-            app:destination="@id/playerFragment"
-            app:popUpTo="@id/playerFragment"
-            app:popUpToInclusive="false" />
-
-        <!-- Ir direto para ranking -->
-        <action
-            android:id="@+id/action_stats_to_ranking"
-            app:destination="@id/playerRankingFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-    </fragment>
-
-    <!-- ========== RANKING GLOBAL ========== -->
-    <fragment
-        android:id="@+id/playerRankingFragment"
+    <!-- RANKING -->
+    <fragment android:id="@+id/playerRankingFragment"
         android:name="com.example.gmodscore.feature.player.ranking.PlayerRankingFragment"
-        android:label="Ranking"
-        tools:layout="@layout/fragment_player_ranking">
+        android:label="Ranking" tools:layout="@layout/fragment_player_ranking"/>
 
-        <!-- Voltar ao perfil -->
-        <action
-            android:id="@+id/action_ranking_to_player"
-            app:destination="@id/playerFragment"
-            app:popUpTo="@id/playerFragment"
-            app:popUpToInclusive="false" />
-
-        <!-- Ir direto para score -->
-        <action
-            android:id="@+id/action_ranking_to_score"
-            app:destination="@id/playerScoreFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-    </fragment>
-
-    <!-- ========== HISTÓRICO DE PARTIDAS ========== -->
-    <fragment
-        android:id="@+id/playerScoreFragment"
+    <!-- SCORE -->
+    <fragment android:id="@+id/playerScoreFragment"
         android:name="com.example.gmodscore.feature.player.score.PlayerScoreFragment"
-        android:label="Partidas"
-        tools:layout="@layout/fragment_player_score">
+        android:label="Partidas" tools:layout="@layout/fragment_player_score"/>
 
-        <!-- Voltar ao perfil -->
+    <!-- VISITANTE -->
+    <fragment
+        android:id="@+id/visitanteFragment"
+        android:name="com.example.gmodscore.feature.visitante.VisitanteFragment"
+        android:label="Visitante"
+        tools:layout="@layout/fragment_visitante">
+
         <action
-            android:id="@+id/action_score_to_player"
-            app:destination="@id/playerFragment"
-            app:popUpTo="@id/playerFragment"
-            app:popUpToInclusive="false" />
+            android:id="@+id/action_visitante_to_login"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/visitanteFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
 </navigation>

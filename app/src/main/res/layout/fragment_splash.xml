@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_player_screen"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingStart="40dp"
+    android:paddingEnd="40dp">
+
+    <!-- Ícone do app com animação -->
+    <ImageView
+        android:id="@+id/imgSplashLogo"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@mipmap/ic_launcher"
+        android:contentDescription="Logo"
+        android:scaleType="fitCenter"
+        android:alpha="0"
+        android:scaleX="0.5"
+        android:scaleY="0.5" />
+
+    <!-- Nome do app -->
+    <TextView
+        android:id="@+id/txtSplashTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="GmodScore"
+        android:textColor="@color/player_text_primary"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:alpha="0" />
+
+    <!-- Subtítulo -->
+    <TextView
+        android:id="@+id/txtSplashSubtitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Estatísticas em tempo real"
+        android:textColor="@color/player_accent"
+        android:textSize="15sp"
+        android:alpha="0" />
+
+    <!-- Barra de carregamento -->
+    <ProgressBar
+        android:id="@+id/progressSplash"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="200dp"
+        android:layout_height="6dp"
+        android:layout_marginTop="60dp"
+        android:indeterminate="true"
+        android:progressTint="@color/player_accent"
+        android:progressBackgroundTint="@color/player_surface_border"
+        android:alpha="0" />
+
+    <!-- Status do carregamento -->
+    <TextView
+        android:id="@+id/txtSplashStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Conectando ao servidor..."
+        android:textColor="@color/player_text_secondary"
+        android:textSize="12sp"
+        android:alpha="0" />
+
+    <!-- Versão -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="v1.0.0"
+        android:textColor="@color/player_text_secondary"
+        android:textSize="11sp"
+        android:alpha="0.5" />
+
+</LinearLayout>
