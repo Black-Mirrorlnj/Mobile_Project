@@ -85,7 +85,7 @@ public class SplashFragment extends Fragment {
 
             if (session.estaLogado()) {
                 // Usuário já logado → vai direto para o Player
-                binding.txtSplashStatus.setText("Bem-vindo, " + session.getUsername() + "!");
+                binding.txtSplashStatus.setText("Bem-vindo, " + session.getNome() + "!");
                 new Handler(Looper.getMainLooper()).postDelayed(() -> {
                     if (binding == null) return;
                     NavHostFragment.findNavController(this)

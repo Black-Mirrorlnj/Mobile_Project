@@ -139,6 +139,46 @@
                         android:textColor="@color/player_text_primary" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <!-- Campo: Nome (só no cadastro) -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutNome"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:hint="Nome completo"
+                    android:visibility="gone"
+                    app:boxStrokeColor="@color/player_accent"
+                    app:hintTextColor="@color/player_text_secondary">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inputNome"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:textColor="@color/player_text_primary" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Campo: Email (só no cadastro) -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutEmail"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:hint="Email"
+                    android:visibility="gone"
+                    app:boxStrokeColor="@color/player_accent"
+                    app:hintTextColor="@color/player_text_secondary">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inputEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/player_text_primary" />
+                </com.google.android.material.textfield.TextInputLayout>
+
                 <!-- Mensagem de erro -->
                 <TextView
                     android:id="@+id/txtErro"

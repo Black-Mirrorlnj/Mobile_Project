@@ -100,4 +100,17 @@
         android:label="Jogar"
         tools:layout="@layout/fragment_play" />
 
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.gmodscore.feature.settings.SettingsFragment"
+        android:label="Configurações"
+        tools:layout="@layout/fragment_settings">
+
+        <action
+            android:id="@+id/action_settings_to_login"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
 </navigation>

@@ -27,5 +27,10 @@
         android:icon="@drawable/ic_score"
         android:title="Partidas" />
 
+    <item
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/ic_settings"
+        android:title="Config" />
+
 </menu>
 

@@ -8,6 +8,7 @@ import com.example.gmodscore.network.model.partida.PartidaAtiva;
 import com.example.gmodscore.network.model.servidor.Servidor;
 import com.example.gmodscore.network.model.usuario.User;
 import com.example.gmodscore.network.model.visitante.Visitante;
+import com.example.gmodscore.network.model.usuario.LoginRequest;
 
 import java.util.List;
 
@@ -59,21 +60,24 @@ public interface ApiService {
     @PUT("pontuacoes/finalizar")
     Call<Void> finalizarPontuacao(@Body Pontuacao pontuacao);
 
-    // ── USERS ──────────────────────────────────────────────
-    @GET("users")
-    Call<List<User>> listarUsers();
+    // ── USUÁRIOS ───────────────────────────────────────────
+    @GET("usuarios")
+    Call<List<User>> listarUsuarios();
 
-    @GET("users/{id}")
-    Call<User> buscarUser(@Path("id") int id);
+    @GET("usuarios/{id}")
+    Call<User> buscarUsuario(@Path("id") long id);
 
-    @POST("users")
-    Call<User> criarUser(@Body User user);
+    @POST("usuarios")
+    Call<User> criarUsuario(@Body User user);
 
-    @PUT("users/{id}")
-    Call<User> atualizarUser(@Path("id") int id, @Body User user);
+    @PUT("usuarios/{id}")
+    Call<User> atualizarUsuario(@Path("id") long id, @Body User user);
 
-    @DELETE("users/{id}")
-    Call<Void> deletarUser(@Path("id") int id);
+    @DELETE("usuarios/{id}")
+    Call<Void> deletarUsuario(@Path("id") long id);
+
+    @POST("usuarios/login")
+    Call<User> login(@Body LoginRequest loginRequest);
 
     // ── VISITANTES ─────────────────────────────────────────
     @GET("visitantes")

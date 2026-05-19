@@ -14,10 +14,9 @@ import com.example.gmodscore.R;
 import com.example.gmodscore.databinding.FragmentLoginBinding;
 import com.example.gmodscore.network.RetrofitClient;
 import com.example.gmodscore.network.model.usuario.SessionManager;
+import com.example.gmodscore.network.model.usuario.LoginRequest;
 import com.example.gmodscore.network.model.usuario.User;
 import com.google.android.material.tabs.TabLayout;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,7 +44,6 @@ public class LoginFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         session = new SessionManager(requireContext());
 
-        // Se já estiver logado vai direto para o player
         if (session.estaLogado()) {
             irParaPlayer();
             return;
@@ -61,8 +59,12 @@ public class LoginFragment extends Fragment {
             public void onTabSelected(TabLayout.Tab tab) {
                 modoLogin = tab.getPosition() == 0;
                 binding.btnAcao.setText(modoLogin ? "Entrar" : "Cadastrar");
-                binding.layoutConfirmPassword.setVisibility(
-                        modoLogin ? View.GONE : View.VISIBLE);
+
+                // Campos extras só aparecem no cadastro
+                int vis = modoLogin ? View.GONE : View.VISIBLE;
+                binding.layoutConfirmPassword.setVisibility(vis);
+                binding.layoutNome.setVisibility(vis);
+                binding.layoutEmail.setVisibility(vis);
                 esconderErro();
             }
             @Override public void onTabUnselected(TabLayout.Tab tab) {}
@@ -71,84 +73,88 @@ public class LoginFragment extends Fragment {
     }
 
     private void configurarBotoes() {
-
         binding.btnAcao.setOnClickListener(v -> {
-            String user = binding.inputUsername.getText().toString().trim();
-            String pass = binding.inputPassword.getText().toString().trim();
+            String loginStr = binding.inputUsername.getText().toString().trim();
+            String senha    = binding.inputPassword.getText().toString().trim();
 
-            if (user.isEmpty() || pass.isEmpty()) {
+            if (loginStr.isEmpty() || senha.isEmpty()) {
                 mostrarErro("Preencha todos os campos");
                 return;
             }
 
-            if (!modoLogin) {
-                String confirm = binding.inputConfirmPassword
-                        .getText().toString().trim();
-                if (!pass.equals(confirm)) {
+            if (modoLogin) {
+                login(loginStr, senha);
+            } else {
+                String confirm = binding.inputConfirmPassword.getText().toString().trim();
+                String nome    = binding.inputNome.getText().toString().trim();
+                String email   = binding.inputEmail.getText().toString().trim();
+
+                if (!senha.equals(confirm)) {
                     mostrarErro("As senhas não coincidem");
                     return;
                 }
-                cadastrar(user, pass);
-            } else {
-                login(user, pass);
+                if (nome.isEmpty() || email.isEmpty()) {
+                    mostrarErro("Preencha nome e email");
+                    return;
+                }
+                cadastrar(nome, email, loginStr, senha);
             }
         });
 
-        // Entrar como visitante
         binding.btnVisitante.setOnClickListener(v ->
                 NavHostFragment.findNavController(this)
                         .navigate(R.id.action_login_to_visitante));
     }
 
-    private void login(String username, String password) {
+    private void login(String login, String senha) {
         showLoading(true);
-        // TODO: trocar por POST /login com JWT quando o backend implementar
-        RetrofitClient.getApi().listarUsers().enqueue(new Callback<List<User>>() {
+        LoginRequest request = new LoginRequest(login, senha);
+
+        RetrofitClient.getApi().login(request).enqueue(new Callback<User>() {
             @Override
-            public void onResponse(@NonNull Call<List<User>> call,
-                                   @NonNull Response<List<User>> response) {
+            public void onResponse(@NonNull Call<User> call,
+                                   @NonNull Response<User> response) {
                 showLoading(false);
                 if (response.isSuccessful() && response.body() != null) {
-                    for (User u : response.body()) {
-                        if (u.username.equals(username)
-                                && u.password.equals(password)) {
-                            session.salvarSessao(u.userId, u.username);
-                            irParaPlayer();
-                            return;
-                        }
-                    }
-                    mostrarErro("Usuário ou senha incorretos");
+                    User u = response.body();
+                    session.salvarSessao((int) u.id, u.login, u.nome);
+                    irParaPlayer();
                 } else {
-                    mostrarErro("Erro ao conectar ao servidor");
+                    mostrarErro("Login ou senha incorretos");
                 }
             }
 
             @Override
-            public void onFailure(@NonNull Call<List<User>> call,
-                                  @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<User> call, @NonNull Throwable t) {
                 showLoading(false);
                 mostrarErro("Sem conexão com o servidor");
             }
         });
     }
 
-    private void cadastrar(String username, String password) {
+    private void cadastrar(String nome, String email,
+                           String login, String senha) {
         showLoading(true);
-        User novoUser = new User();
-        novoUser.username = username;
-        novoUser.password = password;
 
-        RetrofitClient.getApi().criarUser(novoUser).enqueue(new Callback<User>() {
+        User novoUser   = new User();
+        novoUser.nome   = nome;
+        novoUser.email  = email;
+        novoUser.login  = login;
+        novoUser.senha  = senha;
+        novoUser.perfil = "JOGADOR"; // perfil padrão
+        novoUser.ativo  = true;
+
+        RetrofitClient.getApi().criarUsuario(novoUser).enqueue(new Callback<User>() {
             @Override
             public void onResponse(@NonNull Call<User> call,
                                    @NonNull Response<User> response) {
                 showLoading(false);
                 if (response.isSuccessful() && response.body() != null) {
-                    User criado = response.body();
-                    session.salvarSessao(criado.userId, criado.username);
+                    User u = response.body();
+                    session.salvarSessao((int) u.id, u.login, u.nome);
                     irParaPlayer();
                 } else {
-                    mostrarErro("Usuário já existe ou erro no servidor");
+                    mostrarErro("Erro ao cadastrar. Tente outro login.");
                 }
             }
 
